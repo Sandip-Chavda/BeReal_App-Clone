@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 const AboutScreen = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>AboutScreen</Text>
     </View>
   );
@@ -11,4 +11,10 @@ const AboutScreen = () => {
 
 export default AboutScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

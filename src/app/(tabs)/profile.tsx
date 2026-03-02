@@ -1,15 +1,15 @@
-import { Link } from "expo-router";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function Index() {
+const ProfileScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Edit src/app/index.tsx to edit this screen.</Text>
-
-      <Link href={"/about"}></Link>
+      <Text>ProfileScreen</Text>
     </View>
   );
-}
+};
+
+export default ProfileScreen;
 
 const styles = StyleSheet.create({
   container: {

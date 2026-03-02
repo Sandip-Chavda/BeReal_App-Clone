@@ -1,20 +1,22 @@
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
+import { useEffect } from "react";
 
 export default function RootLayout() {
+  const isAuth = false;
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuth) {
+      router.replace("/(auth)/login");
+    } else {
+      router.replace("/(tabs)");
+    }
+  }, []);
+
   return (
-    <Stack screenOptions={{}}>
-      <Stack.Screen
-        name="index"
-        options={{
-          title: "Home",
-        }}
-      />
-      <Stack.Screen
-        name="about"
-        options={{
-          title: "About",
-        }}
-      />
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="(auth)" />
     </Stack>
   );
 }
