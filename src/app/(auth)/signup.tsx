@@ -1,7 +1,10 @@
+import { useAuth } from "@/context/AuthContext";
 import { Image } from "expo-image";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -11,8 +14,31 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const SignupScreen = () => {
+  const router = useRouter();
+  const { signUp } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignup = async () => {
+    if (!email || !password) {
+      Alert.alert("Error", "Please fill in all fields!");
+    }
+
+    if (password.length < 6) {
+      Alert.alert("Password", "Password must be atleast 6 character long!");
+    }
+
+    setIsLoading(true);
+    try {
+      await signUp(email, password);
+    } catch (error) {
+      Alert.alert("Error", "Faailed to Create Account, Please try again!");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <SafeAreaView edges={["bottom", "top"]} style={styles.container}>
@@ -45,14 +71,31 @@ const SignupScreen = () => {
           />
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
-          <Text style={styles.buttonText}>Create Account</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSignup}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <ActivityIndicator size={"large"} color={"white"} />
+          ) : (
+            <Text style={styles.buttonText}>Create Account</Text>
+          )}
         </TouchableOpacity>
 
-        <Link style={styles.signupLinkText} href={"/(auth)/login"}>
-          Already have an account?{" "}
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: -15,
+            gap: 5,
+          }}
+          onPress={() => router.replace("/(auth)/login")}
+        >
+          <Text style={styles.signupLinkText}>Already have an account?</Text>
           <Text style={styles.signupLinkTextBold}>Login</Text>
-        </Link>
+        </TouchableOpacity>
 
         <View style={styles.devider}>
           <View style={styles.horizontalLine} />
@@ -126,7 +169,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
     letterSpacing: 0.5,
-    marginTop: -15,
   },
   signupLinkTextBold: {
     fontWeight: "600",

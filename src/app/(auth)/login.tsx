@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { Link } from "expo-router";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -11,6 +11,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const LoginScreen = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -49,10 +51,19 @@ const LoginScreen = () => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
-        <Link style={styles.signupLinkText} href={"/(auth)/signup"}>
-          Don&apos;t have an account?{" "}
-          <Text style={styles.signupLinkTextBold}>SignUp</Text>
-        </Link>
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: -15,
+            gap: 5,
+          }}
+          onPress={() => router.replace("/(auth)/signup")}
+        >
+          <Text style={styles.signupLinkText}>Don&apos;t have an account?</Text>
+          <Text style={styles.signupLinkTextBold}>Sign Up</Text>
+        </TouchableOpacity>
 
         <View style={styles.devider}>
           <View style={styles.horizontalLine} />
@@ -126,7 +137,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
     letterSpacing: 0.5,
-    marginTop: -15,
   },
   signupLinkTextBold: {
     fontWeight: "600",
