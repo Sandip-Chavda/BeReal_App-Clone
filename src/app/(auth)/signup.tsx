@@ -24,17 +24,22 @@ const SignupScreen = () => {
   const handleSignup = async () => {
     if (!email || !password) {
       Alert.alert("Error", "Please fill in all fields!");
+      return;
     }
 
     if (password.length < 6) {
       Alert.alert("Password", "Password must be atleast 6 character long!");
+      return;
     }
 
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       await signUp(email, password);
+
+      router.push("/(auth)/onboarding");
     } catch (error) {
-      Alert.alert("Error", "Faailed to Create Account, Please try again!");
+      console.log(error);
+      Alert.alert("Error", "Failed to Create Account, Please try again!");
     } finally {
       setIsLoading(false);
     }

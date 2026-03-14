@@ -8,14 +8,19 @@
     "scheme": "berealclone",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/images/bereal-icon.png"
+      "icon": "./assets/images/bereal-icon.png",
+      "infoPliat": {
+        "NSPhotoLibraryUsageDescription": "We need access your photo library so you can choose photos to upload",
+        "NSCameraUsageDescription": "We need access your camera so you can choose photos to upload"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "monochromeImage": "./assets/images/android-icon-monochrome.png",
+        "permissions": ["CAMERA", "READ_MEDIA_IMAGES"]
       },
       "predictiveBackGestureEnabled": false,
       "package": "com.anonymous.berealclone"
